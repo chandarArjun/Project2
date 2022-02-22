@@ -1,0 +1,45 @@
+def choices():
+    print("Please choose what you would like to do.")
+    choice = int(input("For Registration Type 1 and For login in Type 2: "))
+    if choice == 1:
+       return (getdetails())
+    elif choice == 2:
+       return (checkdetails())
+    else:
+       raise TypeError
+
+def getdetails():
+    
+    print("email/username should have '@'and '.' ")
+    #eg:user@gmail.com
+    print("The password should be b/w 5 to 16 letters,contain one Upper case,one lower case,one digit and one special character")
+    #eg:User@123
+    name = str(input("Name: "))
+    password = str(input("Password:"))
+    f = open("User_Data.txt",'r')
+    info = f.read()
+    if name in info:
+        return "Invalid request. Please Try Again"
+    f.close()
+    f = open("User_Data.txt",'w')
+    info = info + " " +name + " " + password
+    f.write(info)
+
+def checkdetails():
+    print("Please Provide")
+    name = str(input("Name: "))
+    password = str(input("Password: "))
+    f = open("User_Data.txt",'r')
+    info = f.read()
+    info = info.split()
+    if name in info:
+        index = info.index(name) + 1
+        usr_password = info[index]
+        if usr_password == password:
+            return "Welcome Back, " + name
+        else:
+            return "Password entered is wrong"
+    else:
+        return "Name not found. Please Register."
+
+print(choices())
